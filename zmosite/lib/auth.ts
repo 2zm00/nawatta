@@ -6,6 +6,7 @@ import { compare } from 'bcrypt'
 import { DefaultSession } from "next-auth"
 
 
+
 interface User {
   id: string;
   email: string;
@@ -15,11 +16,15 @@ interface User {
 }
 
 declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string
-      role: string
-    } & DefaultSession["user"]
+  interface Session extends DefaultSession {
+    user?: {
+      id: string;
+      role: string;
+    } & DefaultSession["user"];
+  }
+
+  interface User {
+    role?: string;
   }
 }
 export const authOptions: NextAuthOptions = {
@@ -56,23 +61,19 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (account && account.provider === 'google') {
-        token.id = account.providerAccountId
-      } else if (user) {
-        token.id = user.id
-      }
+    async jwt({ token, user }) {
       if (user) {
-        token.role = user.role || 'user'
+        token.id = user.id;
+        token.role = user.role || 'user';
       }
-      return token
+      return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string
-        session.user.role = token.role as string
+        session.user.id = token.id as string;
+        session.user.role = token.role as string;
       }
-      return session
+      return session;
     },
   },
   pages: {
