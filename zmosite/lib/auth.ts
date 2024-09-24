@@ -3,6 +3,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import { query } from './db'
 import { compare } from 'bcrypt'
+import { DefaultSession } from "next-auth"
+
 
 interface User {
   id: string;
@@ -12,6 +14,14 @@ interface User {
   password: string;
 }
 
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string
+      role: string
+    } & DefaultSession["user"]
+  }
+}
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
