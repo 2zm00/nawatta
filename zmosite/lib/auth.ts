@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
           );
           const user = users[0];
           if (user && await compare(credentials.password, user.password)) {
-            const { password, ...userWithoutPassword } = user;
+            const { password: _password, ...userWithoutPassword } = user;
             return userWithoutPassword;
           }
         } catch (error) {

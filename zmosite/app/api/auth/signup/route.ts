@@ -22,8 +22,8 @@ export async function POST(request: Request) {
     )
 
     return NextResponse.json({ message: "회원가입이 완료되었습니다." }, { status: 201 })
-  } catch (error) {
-    console.error("회원가입 중 오류 발생:", error)
+  } catch (error: unknown) {
+  console.error('회원가입 중 오류 발생:', error);
     return NextResponse.json({ error: "회원가입에 실패했습니다." }, { status: 500 })
   }
 }

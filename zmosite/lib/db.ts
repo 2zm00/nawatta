@@ -8,10 +8,10 @@ const pool = mysql.createPool({
   connectionLimit: 10,
 });
 
-export async function query(sql: string, params: any[] = []) {
+export async function query<T>(sql: string, params: unknown[] = []): Promise<T> {
 	try {
 	  const [results] = await pool.execute(sql, params);
-	  return results;
+	  return results as T;
 	} catch (error: any) {
 	  console.error('Error executing query', error);
 	  // 더 자세한 오류 정보 출력

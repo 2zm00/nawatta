@@ -58,8 +58,8 @@ export async function GET(request: Request) {
       [limit, offset]
     );
     return NextResponse.json(rows)
-  } catch (error) {
-    console.error("메시지 조회 중 오류 발생:", error)
+  } catch (error: unknown) {
+	console.error("메시지 작성 중 오류 발생:", error);
     return NextResponse.json({ error: "메시지 조회에 실패했습니다." }, { status: 500 })
   }
 }
