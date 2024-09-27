@@ -4,10 +4,11 @@
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { SessionProvider } from "next-auth/react"
+import { useRouter } from 'next/navigation'
 
 const NavbarContent = () => {
 const { data: session } = useSession();
-
+const router = useRouter()
 
   return (
 	<div>
@@ -23,12 +24,12 @@ const { data: session } = useSession();
           {session ? (
             <>
               <span className="mr-4">안녕하세요, {session.user?.name}님!</span>
-              <button onClick={() => signOut()} className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">
+              <button onClick={() => signOut()} className="bg-red-300 hover:bg-red-600 px-3 py-1 rounded">
                 로그아웃
               </button>
             </>
           ) : (
-            <button onClick={() => signIn()} className="bg-green-500 hover:bg-green-600 px-3 py-1 rounded">
+            <button onClick={() => router.push('/auth')} className="bg-green-300 hover:bg-green-600 px-3 py-1 rounded">
               로그인
             </button>
           )}

@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
@@ -21,7 +22,14 @@ export const authOptions: NextAuthOptions = {
       (session as any).accessToken = token.accessToken
       return session
     }
-  }
+  },
+
+
+  pages: {
+    signIn: '/auth',
+  },
 }
 
-export default NextAuth(authOptions)
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST }

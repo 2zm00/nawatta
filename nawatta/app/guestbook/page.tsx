@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { sql } from "@vercel/postgres";
-import { authOptions } from "../auth/[...nextauth]";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 import Sticker from "../components/Sticker";
 
 interface Message {
@@ -24,12 +24,12 @@ export default async function GuestBook() {
           <textarea 
             name="content" 
             required 
-            className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" 
+            className="w-full p-2 border rounded dark:bg-zinc-800 dark:text-white" 
             placeholder="멘트 받겠습니다."
           ></textarea>
           <button 
             type="submit"  
-            className="mt-2 px-4 py-2 bg-white text-black border-2 border-yellow-200 rounded hover:bg-yellow-400 hover:text-black transition-colors"
+            className="mt-2 px-4 py-2 bg-white text-black border-2 border-yellow-400 rounded hover:bg-yellow-200 hover:text-black transition-colors"
           >
             메시지 남기기
           </button>
