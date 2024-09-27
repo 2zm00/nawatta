@@ -1,45 +1,51 @@
 import { getServerSession } from "next-auth/next"
+import { redirect } from 'next/navigation'
 import { query } from '@/lib/db'
-import PostIt from '@/components/PostIt'
 import { authOptions } from '@/lib/auth'
 
 interface Message {
   id: number;
   content: string;
-  user_id: string;
-  user_name: string;
-  created_at: string;
+  created_at: Date;
 }
 
-export default async function Guestbook() {
+export default async function ProfilePage() {
   const session = await getServerSession(authOptions)
-  const rows = await query('SELECT * FROM messages ORDER BY created_at DESC LIMIT 20') as Message[]
+
+  if (!session || !session.user) {
+    redirect('/api/auth/signin')
+  }
+
+  const rows = await query<Message[]>(
+    'SELECT * FROM messages WHERE user_id = ? ORDER BY created_at DESC LIMIT 10',
+    [session.user.id]
+  );
+
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">ZMOsite 방명록</h1>
-      {session ? (
-		<form action="/api/message" method="POST" className="mb-6">
-  <textarea 
-    name="content" 
-    required 
-    className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" 
-    placeholder="ZMOsite에 대한 여러분의 생각을 남겨주세요!"
-  ></textarea>
-  <button 
-    type="submit" 
-    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-  >
-    메시지 남기기
-  </button>
-</form>
-      ) : (
-        <p className="mb-6">ZMOsite 방명록에 메시지를 남기려면 로그인하세요.</p>
-      )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {rows.map((message) => (
-          <PostIt key={message.id} message={message} />
-        ))}
+    <div className="max-w-4xl mx-auto py-8">
+      <h1 className="text-2xl font-bold mb-4">내 프로필</h1>
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold mb-2">사용자 정보</h2>
+        <p>이름: {session.user.name}</p>
+        <p>이메일: {session.user.email}</p>
+      </div>
+      <div>
+        <h2 className="text-xl font-semibold mb-2">내가 작성한 최근 메시지</h2>
+        {rows.length > 0 ? (
+          <ul className="space-y-4">
+            {rows.map((message) => (
+              <li key={message.id} className="bg-gray-100 p-4 rounded-lg">
+                <p>{message.content}</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  작성일: {new Date(message.created_at).toLocaleString('ko-KR')}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>아직 작성한 메시지가 없습니다.</p>
+        )}
       </div>
     </div>
   )
