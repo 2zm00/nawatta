@@ -7,6 +7,8 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
+    secret: process.env.NEXTAUTH_SECRET,
+  'fallback_secret_for_development',
   ],
 
   callbacks: {
