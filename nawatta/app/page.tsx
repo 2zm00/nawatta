@@ -1,8 +1,10 @@
 'use client'
-
+import './globals.css'
 import Link from 'next/link'
 import { SessionProvider } from "next-auth/react"
 import { Children } from 'react'
+
+
 
 export default function Home() {
   return (
@@ -14,10 +16,10 @@ export default function Home() {
       <p className="text-xl mb-8">
         저 와씀니다.
         </p>
-      <Link href="/guestbook" className="px-6 py-3 bg-white text-black rounded-md hover:bg-gray-400 transition-colors">
+      <Link href="/guestbook" className="mb-8 px-6 py-2 bg-blue-500 shadow-blue-500/50 shadow-lg  text-white rounded-md hover:bg-blue-400 transition-colors">
         말하러가기
       </Link> 
-      <Link href="/info" className="px-6 py-3 bg-white text-black rounded-md hover:bg-gray-400 transition-colors"> 
+      <Link href="/info" className="mb-8 px-6 py-2 bg-cyan-500 text-white text-bold rounded-md hover:bg-cyan-400 transition-colors shadow-lg shadow-cyan-500/50"> 
         Info
       </Link>"
     </div>

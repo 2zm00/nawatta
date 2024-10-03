@@ -15,7 +15,7 @@ const router = useRouter()
 	<div>
     <nav className="bg-opacity-30 backdrop-blur-md text-black p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-xl letter-spacing-3 font-bold flex items-center">
+        <Link href="/" className="text-xl letter-spacing-3 font-bold flex items-center shadow-lg ">
 
           ZMO
         </Link>
@@ -25,8 +25,8 @@ const router = useRouter()
           </Link>
           {session ? (
             <div className='flex items-center space-x-4'>
-              <span className="mr-4">안녕하세요, {session.user?.name}님!</span>
-              <button onClick={() => signOut()} className="bg-red-500 hover:bg-red-300 px-3 py-1 rounded flex items-center">
+              <span className="mr-4 ">안녕하세요, <a className='shadow-md underline decoration-3 decoration-indigo-500 '>{session.user?.name}</a>님!</span>
+              <button onClick={() => signOut()} className="bg-red-500 text-white shadow-lg shadow-red-500/50 hover:bg-red-300 px-3 py-1 rounded flex items-center opacity-80 font-thin ">
               <IoMdLogOut className="mr-2" />
                 로그아웃
               </button>
