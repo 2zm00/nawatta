@@ -4,6 +4,7 @@ import Navbar from '@/app/components/Navbar'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/lib/auth";
 import localFont from 'next/font/local'
+import { Noto_Sans_KR } from "next/font/google"
 import "../app/favicon.ico"
 
 const Nanum = localFont({
@@ -11,10 +12,11 @@ const Nanum = localFont({
   display: 'swap',
 })
 
-const Noto = localFont({
-  src: './fonts/NotoSans.ttf',
-  display: 'swap',
+const Noto = Noto_Sans_KR({
+  weight: ['500'],
+  subsets: ['latin']
 })
+
 
 export const metadata: Metadata = {
   title: "나 와따!",
@@ -30,8 +32,8 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
 
   return (
-    <html lang="ko" className={Noto.className}>
-      <body>
+    <html lang="ko" >
+      <body className={Noto.className}>
         <Navbar />
         <main className="container mx-auto mt-4">
           {children}

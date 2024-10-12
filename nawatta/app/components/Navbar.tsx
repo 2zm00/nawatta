@@ -13,7 +13,7 @@ const router = useRouter()
 
   return (
 	<div>
-    <nav className="sticky top-0 bg-opacity-30 backdrop-blur-md text-black p-4">
+    <nav className="fixed w-screen top-0 bg-opacity-30 backdrop-blur-md text-black p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="px-4 py-1 rounded-md text-xl letter-spacing-3 font-bold flex items-center hover:bg-slate-200">
 
@@ -47,7 +47,7 @@ const router = useRouter()
         </div>
       </div>
     </nav>
-	<div className="h-px bg-gray-500"></div>
+
 	</div>
 	
   );
