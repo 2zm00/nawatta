@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from '@/app/components/Navbar'
+// import Navbar2 from '@/app/components/Navbar2'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/lib/auth";
 import localFont from 'next/font/local'
@@ -35,7 +36,7 @@ export default async function RootLayout({
     <html lang="ko" >
       <body className={Noto.className}>
         <Navbar />
-        <main className="container mx-auto mt-4">
+        <main className="container mx-auto mt-32 mb-32">
           {children}
         </main>
       </body>
