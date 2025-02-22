@@ -1,6 +1,5 @@
 # ZMOsite 인터랙티브 방명록 프로젝트
 
-![ZMOsite Logo](public/images/logo.png)
 
 ZMOsite는 사용자 친화적이고 현대적인 인터랙티브 방명록 웹 애플리케이션입니다. 간편한 회원가입과 로그인, 메시지 작성 및 공유, 다크 모드 지원 등 다양한 기능을 제공합니다.
 
@@ -18,5 +17,5 @@ ZMOsite는 사용자 친화적이고 현대적인 인터랙티브 방명록 웹 
 - **Frontend**: Next.js, React, TypeScript
 - **Styling**: Tailwind CSS
 - **Authentication**: NextAuth.js
-- **Database**: Vercel Postgres
+- **Database**: MongoDB
 - **Deployment**: Vercel
