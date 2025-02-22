@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { sql } from "@vercel/postgres";
+import { connectToDatabase } from "../lib/mongodb";
 import { authOptions } from "@/app/lib/auth";
 import Sticker from "../components/Sticker";
 
@@ -13,8 +13,21 @@ interface Message {
 
 export default async function GuestBook() {
   const session = await getServerSession(authOptions);
-  const { rows } = await sql`SELECT * FROM messages ORDER BY created_at DESC LIMIT 20`;
-  const messages = rows as Message[];
+  const { db } = await connectToDatabase();
+
+  const messagesData = await db.collection("messages")
+  .find({})
+  .sort({ created_at: -1 })
+  .limit(20)
+  .toArray();
+
+  const messages: Message[] = messagesData.map((msg: any) => ({
+    id: msg._id.toString(),
+    content: msg.content,
+    user_name: msg.user_name,
+    created_at: new Date(msg.created_at).toISOString(),
+  }));
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">

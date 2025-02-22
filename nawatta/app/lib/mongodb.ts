@@ -1,49 +1,36 @@
 import { MongoClient, Db } from "mongodb";
 
-const uri = process.env.NEXT_ATLAS_URI;
-const options = {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-} as const;
-
-interface MongoConnection {
-    mongoClient: MongoClient | null;
-    database: Db | null;
+if (!process.env.MONGODB_URI) {
+throw new Error("Please add your MongoDB URI to .env.local");
 }
 
-// global 타입 확장
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
+
 declare global {
-    var _mongoClient: MongoClient | null;
+var _mongoClientPromise: Promise<MongoClient>;
 }
 
-let mongoClient: MongoClient | null = null;
-let database: Db | null = null;
+const uri: string = process.env.MONGODB_URI;
 
-if (!process.env.NEXT_ATLAS_URI) {
-    throw new Error('Please add your Mongo URI to .env.local');
+if (process.env.NODE_ENV === "development") {
+if (!global._mongoClientPromise) {
+client = new MongoClient(uri);
+global._mongoClientPromise = client.connect();
+}
+clientPromise = global._mongoClientPromise;
+} else {
+// 프로덕션 환경에서는 매 요청마다 새 클라이언트를 생성합니다.
+client = new MongoClient(uri);
+clientPromise = client.connect();
 }
 
-export async function connectToDatabase(): Promise<MongoConnection> {
-    try {
-        if (mongoClient && database) {
-            return { mongoClient, database };
-        }
-
-        if (process.env.NODE_ENV === "development") {
-            if (!global._mongoClient) {
-                mongoClient = await (new MongoClient(uri!, options)).connect();
-                global._mongoClient = mongoClient;
-            } else {
-                mongoClient = global._mongoClient;
-            }
-        } else {
-            mongoClient = await (new MongoClient(uri!, options)).connect();
-        }
-
-        database = await mongoClient.db(process.env.NEXT_ATLAS_DATABASE!);
-        return { mongoClient, database };
-    } catch (e) {
-        console.error(e);
-        throw new Error('Failed to connect to database');
-    }
+export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient }> {
+const client = await clientPromise;
+const dbName = process.env.MONGODB_DATABASE; 
+if (!dbName) {
+throw new Error("Please add your MongoDB database name to .env.local as MONGODB_DB");
+}
+const db: Db = client.db(dbName);
+return { db, client };
 }
