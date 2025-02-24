@@ -17,7 +17,7 @@ const router = useRouter()
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="px-4 py-1 rounded-md text-xl letter-spacing-3 font-bold flex items-center hover:bg-slate-200">
 
-          ZMO
+          NAWATTA
         </Link>
         <div className='flex items-center space-x-1'>
           
