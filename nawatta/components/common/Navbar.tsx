@@ -2,7 +2,7 @@
 
 
 import Link from 'next/link';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { SessionProvider } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { IoMdLogIn, IoMdLogOut, IoIosList, IoMdInformationCircleOutline } from "react-icons/io";
