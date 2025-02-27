@@ -1,14 +1,15 @@
 <div align="center">
     <img width="80%" alt="logo" src="./nawatta/assets/nawatta.png">
-    <h1><strong>나 와따!</strong></h1>
-    <p>방명록 프로젝트입니다. 간단한 소셜로그인으로 로그인 하고 여러분의 존재를 알리는 메시지를 남겨주세요!</p>
-    <a href="https://nawatta.kro.kr">
+	    <a href="https://nawatta.kro.kr">
         <img src="https://img.shields.io/badge/Website-NAWATTA-blue?style=for-the-badge&logo=vercel" alt="Website">
     </a>
     <br />
     <a href="https://github.com/2zm00">
         <img src="https://img.shields.io/badge/GitHub-2zm00-black?style=for-the-badge&logo=github" alt="GitHub Repository">
     </a>
+    <h1><strong>나 와따!</strong></h1>
+    <p>방명록 프로젝트입니다. 간단한 소셜로그인으로 로그인 하고 여러분의 존재를 알리는 메시지를 남겨주세요!</p>
+
 </div>
 
 ---
