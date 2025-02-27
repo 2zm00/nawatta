@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="64" alt="logo" src="./nawatta/assets/nawatta.png">
+    <img width="80%" alt="logo" src="./nawatta/assets/nawatta.png">
     <h1>Nawatta</h1>
     <p>나 왔다! 방명록 프로젝트입니다. 간단한 소셜로그인, 자신의 존재를 알리는 메시지를 남겨주세요!</p>
     <a href="https://nawatta.vercel.app">
